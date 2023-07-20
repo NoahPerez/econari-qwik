@@ -2,7 +2,7 @@
 	"name": "storefront-qwik-starter",
 	"description": "A headless commerce storefront starter kit built with Vendure & Qwik",
 	"homepage": "https://qwik.builder.io/",
-	"license": "",
+	"license": "Econari",
 	"private": true,
 	"type": "module",
 	"engines": {
