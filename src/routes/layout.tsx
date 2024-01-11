@@ -49,6 +49,9 @@ export default component$(() => {
 	const collectionsSignal = useCollectionsLoader();
 	const availableCountriesSignal = useAvailableCountriesLoader();
 
+	// Log the available countries for debugging
+	console.log('Available Countries:', availableCountriesSignal.value);
+
 	const state = useStore<AppState>({
 		showCart: false,
 		customer: { id: CUSTOMER_NOT_DEFINED_ID, firstName: '', lastName: '' } as ActiveCustomer,

@@ -22,12 +22,15 @@ const execute = async <R, V = Record<string, any>>(
 	authToken: string = ''
 ): Promise<R> => {
 	const options = { method: 'POST', headers: createHeaders(), body: JSON.stringify(body) };
+	// Add this console.log statement to see the options value
+	console.log('Options:', options);
 	if (authToken !== '') {
 		options.headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` };
 	}
-	const response: ResponseProps<R> = isBrowser && !import.meta.env.DEV
-		? await executeOnTheServer(options)
-		: await executeRequest(options);
+	const response: ResponseProps<R> =
+		isBrowser && !import.meta.env.DEV
+			? await executeOnTheServer(options)
+			: await executeRequest(options);
 
 	if (isBrowser && response.token) {
 		setCookie(AUTH_TOKEN, response.token, 365);
@@ -56,6 +59,7 @@ const extractTokenAndData = async (response: Response) => {
 	const token = response.headers.get(HEADER_AUTH_TOKEN_KEY) || '';
 	const { data, errors } = await response.json();
 	if (errors && !data) {
+		console.log(errors); // Add this line to log the errors
 		// e.g. API access related errors, like auth issues.
 		throw new Error(errors[0].message);
 	}
